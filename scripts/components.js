@@ -1,3 +1,6 @@
+import { hide, show } from './functions.js';
+
+
 const createMiddleware= () =>{
     return {
         load: async ()=> {
@@ -33,19 +36,34 @@ const createMiddleware= () =>{
     }
 }
 
-const controller= async(middleware)=>{
-    const template= `<li> `
+const controller = async(middleware)=>{
+    const template = `<li> `
 
-    const inputFile= document.querySelectorAll('#file');
-    const button= document.querySelector('#button');
-    const listUL= document.getElementById('listUL');
+    const inputFile = document.querySelectorAll('#file');
+    const button = document.querySelector('#button');
+    const listUL = document.getElementById('listUL');
 
-    handleSubmit= async(event)=>{
+    handleSubmit = async(event) => {
         await middleware.upload(inputFile);
-        const list= await middleware.load();
+        const list = await middleware.load();
         render(list);
     }
-    button.onclick= handleSubmit;
+    button.onclick = handleSubmit;
     mi
 }
 
+
+const createNavigator = (parentElement) => {
+  const pages = Array.from(parentElement.querySelectorAll(".page"));
+  
+  const render = () => {
+      const url = new URL(document.location.href);
+      const pageName = url.hash.replace("#", "");
+      const selected = pages.filter((page) => page.id === pageName)[0] || pages[0];
+  
+      hide(pages);
+      show(selected);
+  }
+  window.addEventListener('popstate', render); 
+  render();   
+}
