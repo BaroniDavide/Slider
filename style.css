@@ -1,4 +1,4 @@
-/* Stile per la barra superiore */
+/* barra */
 .top-bar {
     background-color: #ffd500;
     height: 40px;
@@ -12,24 +12,8 @@
     justify-content: flex-end;
     padding-right: 20px;
   }
-  
-  /* Stile per i pulsanti */
-  .btn {
-    padding: 5px 10px;
-    font-size: 14px;
-    font-weight: bold;
-    background-color: #ff8000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .btn:hover {
-    background-color: #df7000;
-  }
-  
-  /* Margine superiore per evitare sovrapposizione con la barra */
+
+
   body {
     margin-top: 50px;
     margin: 0;
@@ -37,25 +21,25 @@
     background: #f4f4f4;
   }
   
-  /* Stile per il titolo */
+  /* Stile titolo */
   .title-container {
     text-align: center;
-    margin-top: 100px; /* Spazio sopra il titolo */
+    margin-top: 100px;
   }
   
   h1 {
     font-family: Arial, sans-serif;
     font-size: 3em;
     letter-spacing: 2px;
-    color: #333; /* Colore del testo */
+    color: #333;
     text-align: center;
-    margin-bottom: 20px; /* Spazio sotto il titolo */
-    border-bottom: 2px solid #ffd500; /* Linea decorativa sotto il titolo */
+    margin-bottom: 20px; 
+    border-bottom: 2px solid #ffd500;
     display: inline-block;
     padding-bottom: 10px;
   }
   
-  /* Stile per le finestre modali */
+  /* Stile per le modali */
   .modal {
     display: none;
     position: fixed;
@@ -83,3 +67,63 @@
   .hidden {
     display: none;
   }
+
+  /*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+  .prec-succ {
+    padding: 15px 25px;
+    border: unset;
+    border-radius: 15px;
+    color: #212121;
+    z-index: 1;
+    background: #e8e8e8;
+    position: relative;
+    font-weight: 1000;
+    font-size: 17px;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms;
+    overflow: hidden;
+   }
+   
+   .prec-succ::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 15px;
+    background-color: #212121;
+    z-index: -1;
+    -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+    transition: all 250ms
+   }
+   
+   .prec-succ:hover {
+    color: #e8e8e8;
+   }
+   
+   .prec-succ:hover::before {
+    width: 100%;
+   }
+
+
+   /*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+   .btn-login {
+    background-color: #f3f7fe;
+    color: #3b82f6;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 100px;
+    height: 45px;
+    transition: 0.3s;
+  }
+  
+  .btn-login:hover {
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 5px #3b83f65f;
+    color: #fff;
+  }
+  

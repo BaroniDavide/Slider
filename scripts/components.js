@@ -1,6 +1,5 @@
 import { hide, show } from './functions.js';
 
-
 export const createMiddleware = () =>{
     return {
         load: async () => {
@@ -52,8 +51,7 @@ export const controller = async(middleware)=>{
     mi
 }
 
-
- export const createNavigator = (parentElement) => {
+export const createNavigator = (parentElement) => {
     const pages = Array.from(parentElement.querySelectorAll(".page"));
     
     const render = () => {
