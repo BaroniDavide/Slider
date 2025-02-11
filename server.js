@@ -18,6 +18,12 @@ app.post("/upload", multer({storage: storage}).single('file'), async(req,res)=> 
     res.json({result: "ok"});
 });
 
+app.get('/images', async(req,res)=>{
+  const list = await database.select();
+res.json(list);  
+})
+
+
 app.delete('/delete/:id', async(req,res) =>{
     await database.delete(req.params.id);
     res.json({result:"ok"});
