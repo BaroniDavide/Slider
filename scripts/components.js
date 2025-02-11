@@ -1,32 +1,32 @@
 import { hide, show } from './functions.js';
 
 
-const createMiddleware= () =>{
+export const createMiddleware = () =>{
     return {
-        load: async ()=> {
-            const response= await fetch("/images");
-            const json= await response.json();
+        load: async () => {
+            const response = await fetch("/images");
+            const json = await response.json();
             return json;
         },
-        delete: async(id) =>{
-            const response= await fetch("/delete/"+ id, {
+        delete: async(id) => {
+            const response = await fetch("/delete/"+ id, {
                 method: 'DELETE',
             });
-            const json= await response.json();
+            const json = await response.json();
             return json
 
         },
-        upload: async(inputFile) =>{
-            formData= new FormData();
+        upload: async(inputFile) => {
+            formData = new FormData();
             formData.append("file", inputFile.files[0]);
-            const body= formData;
+            const body = formData;
             const fetchOptions={
                 method: 'post',
                 body: body
             };
             try{
-                const res= await fetch("/upload", fetchOptions);
-                const data= await res.json();
+                const res = await fetch("/upload", fetchOptions);
+                const data = await res.json();
                 console.log(data);
             }catch (e){
                 console.log(e);
@@ -36,7 +36,7 @@ const createMiddleware= () =>{
     }
 }
 
-const controller = async(middleware)=>{
+export const controller = async(middleware)=>{
     const template = `<li> `
 
     const inputFile = document.querySelectorAll('#file');
@@ -53,17 +53,17 @@ const controller = async(middleware)=>{
 }
 
 
-const createNavigator = (parentElement) => {
-  const pages = Array.from(parentElement.querySelectorAll(".page"));
-  
-  const render = () => {
-      const url = new URL(document.location.href);
-      const pageName = url.hash.replace("#", "");
-      const selected = pages.filter((page) => page.id === pageName)[0] || pages[0];
-  
-      hide(pages);
-      show(selected);
-  }
-  window.addEventListener('popstate', render); 
-  render();   
-}
+ export const createNavigator = (parentElement) => {
+    const pages = Array.from(parentElement.querySelectorAll(".page"));
+    
+    const render = () => {
+       const url = new URL(document.location.href);
+       const pageName = url.hash.replace("#", "");
+       const selected = pages.filter((page) => page.id === pageName)[0] || pages[0];
+ 
+       hide(pages);
+       show(selected);
+    }
+    window.addEventListener('popstate', render); 
+    render();   
+ }

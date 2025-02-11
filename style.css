@@ -37,40 +37,6 @@
     background: #f4f4f4;
   }
   
-  /* Stile per la mappa */
-  #map-container {
-    height: 700px;
-    width: 100%;
-    margin-top: 20px; /* Spazio tra mappa e barra di ricerca */
-  }
-  
-  /* Stile per le tabelle */
-  .table {
-    font-weight: bold;
-    text-align: center;
-  }
-  
-  .table-container table {
-    width: 70%;
-    margin: 20px auto; /* Centra la tabella e aggiunge margine sopra/sotto */
-  }
-  
-  .table-container {
-    text-align: center;
-  }
-  
-  /* Stile per l'intestazione della tabella */
-  .prova th {
-    background-color: #ffd500;
-    color: #000;
-  }
-  
-  /* Stile per la barra di ricerca */
-  .search-container {
-    margin-top: 20px;
-    text-align: center; /* Centra la barra di ricerca */
-  }
-  
   /* Stile per il titolo */
   .title-container {
     text-align: center;
@@ -117,4 +83,3 @@
   .hidden {
     display: none;
   }
-  
