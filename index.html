@@ -13,6 +13,9 @@
     <div id="container" class="container mt-4">
 
         <div id="home" class="page">
+            <div class="top-bar">
+                <div class=""><a href="#admin">Admin</a></div>
+            </div>
             <div class="row">
                 <h1 class="text-center">Slider Immagini</h1>
                 
@@ -25,23 +28,31 @@
                 </div>
             </div> 
             
+            <!--
             <div class="row">
                 <div class="text-center mt-3">
                     <div class=""><a href="#admin">Admin</a></div>
                 </div>
             </div>
+            -->
         </div>
 
         <div id="admin" class="page">
             <div class="row">
                 <h1 class="text-center">ADMIN</h1>
-                <button class="btn-login" id="login">login</button>
                 <div id="table-container-admin"></div>
             </div>
 
             <div class="row">
-                <div class=""><a href="#home">Home</a></div>
+                <div class="top-bar">
+                    <div class=""><a href="#home">Home</a></div>
+                </div>
             </div> 
+
+            <div class="row">
+                <button class="btn-login" id="login">login</button>
+                <div id="login-container"></div>
+            </div>
         </div>
 
     </div> 

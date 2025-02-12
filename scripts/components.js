@@ -188,7 +188,6 @@ export function createLogin(parentElement, myToken, pubsub) {
         });
         };
   
-  
         login_btn.onclick = () => {
         modal.style.display = 'block';
         };
@@ -197,21 +196,24 @@ export function createLogin(parentElement, myToken, pubsub) {
         modal.style.display = 'none';
         };
   
-
         submitBtn.onclick = () => {
         const inputName = document.getElementById('user').value;
         const inputPassword = document.getElementById('password').value;
         login(inputName, inputPassword).then((result) => {
-            console.log("RESULTTTTT     ",result);
-            if (result) {
+            console.log("RESULT: ",result);
+            if (result != "Unauthorized") {
                 isLogged = true;
-                pubsub.publish("Logged",isLogged);
+                pubsub.publish("Logged", isLogged);
                 console.log("login riuscito");
                 console.log(inputName);
                 console.log(inputPassword);
                 modal.style.display = 'none';
+                inputName = '';
+                inputPassword = '';
             } else {
-                console.log("login fallita");
+                console.log("login non riuscita!");
+                console.log(inputName);
+                console.log(inputPassword);
             }
         });
         };

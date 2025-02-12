@@ -1,10 +1,10 @@
-const express= require("express");
-const http= require('http');
-const app= express();
-const multer= require('multer');
-const database= require("./database");
-const storage= multer.diskStorage({
-    filename: function(req,file,callback){
+const express = require("express");
+const http = require('http');
+const app = express();
+const multer = require('multer');
+const database = require("./database");
+const storage = multer.diskStorage({
+    filename: function(req, file, callback){
         callback(null,file.originalname);
     }
 });
@@ -18,13 +18,13 @@ app.post("/upload", multer({storage: storage}).single('file'), async(req,res)=> 
     res.json({result: "ok"});
 });
 
-app.get('/images', async(req,res)=>{
+app.get('/images', async(req, res)=>{
   const list = await database.select();
 res.json(list);  
 })
 
 
-app.delete('/delete/:id', async(req,res) =>{
+app.delete('/delete/:id', async(req, res) =>{
     await database.delete(req.params.id);
     res.json({result:"ok"});
   })
