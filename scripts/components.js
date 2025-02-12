@@ -118,6 +118,88 @@ export function createTable(parentElement, pubsub) {
     };
 }
 
+export function createAdd(parentElement, pubsub) {
+    let foto = [];
+  
+    return {
+        createModal: (add_btn) => {
+            const modalContainer = parentElement;
+  
+            // HTML della modale
+            const modalHTML = `
+                <div id="fotoModal" class="modal" tabindex="-1" style="display: none;">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5">Aggiungi Foto</h1>
+                            </div>
+                            <div class="modal-body">
+                                <form id="fotoForm">
+
+                                    <div class="form-group">
+                                        <label for="Nome">Nome</label>
+                                        <input type="text" class="form-control" id="nome" required>
+                                    </div>
+                            
+                                    <div class="form-group">
+                                        <label for="foto">Foto (url)</label>
+                                        <input type="text" class="form-control" id="foto" required>
+                                    </div>
+
+                                    <button type="button" id="submit" class="btn btn-primary">Invia</button>
+                                    <button type="button" id="cancelButton" class="btn btn-secondary">Annulla</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+  
+            modalContainer.innerHTML += modalHTML;
+  
+            // Elementi della modale
+            const modal = document.getElementById('fotoModal');
+            const cancelButton = document.getElementById('cancelButton');
+            const submitButton = document.getElementById('submit');
+  
+            // Mostra la modale
+            add_btn.onclick = () => {
+                modal.style.display = 'block';
+                console.log("Modale mostrata:", modal.style.display);
+            };
+  
+            // Nascondi la modale
+            cancelButton.onclick = () => {
+                modal.style.display = 'none';
+                //document.getElementById('user').value = '';
+                //document.getElementById('password').value = '';
+            };
+  
+            // Invia i dati
+            submitButton.onclick = () => {
+                const nome = document.getElementById('nome').value;
+                const foto = document.getElementById('foto').value;
+  
+                //id: foto.length + 1,
+                const nuovaFoto = {
+                    nome: nome,
+                    foto: foto
+                };
+  
+                // Aggiungi alla lista locale
+                foto.push(nuovaFoto);
+  
+                // pubblico l'evento
+                pubsub.publish("newFotoAdded", foto);
+  
+                // Chiudi la modale
+                modal.style.display = 'none';
+                console.log("Nuova Foto aggiunta:", nuovaFoto);
+            };
+        }
+    };
+  }
+
 export function createLogin(parentElement, myToken, pubsub) {
     let isLogged = false;
 
@@ -208,8 +290,8 @@ export function createLogin(parentElement, myToken, pubsub) {
                 console.log(inputName);
                 console.log(inputPassword);
                 modal.style.display = 'none';
-                inputName = '';
-                inputPassword = '';
+                document.getElementById('user').value = '';
+                document.getElementById('password').value = '';
             } else {
                 console.log("login non riuscita!");
                 console.log(inputName);

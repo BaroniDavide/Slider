@@ -1,8 +1,14 @@
-import { createMiddleware, controller, createNavigator, createLogin, createPubSub, createTable } from './components.js';
+import { createMiddleware, controller, createNavigator, createLogin, createPubSub, createTable, createAdd } from './components.js';
 
 const login_btn = document.getElementById('login');
 const loginContainer = document.getElementById('login-container');
 const tableAdmin = document.getElementById('table-container-admin');
+const add_btn = document.getElementById('add');
+const addContainer = document.getElementById('add-container');
+const add_btn_container = document.getElementById('add-btn-container');
+
+
+
 
 let myToken, myKey;
 let foto = [
@@ -38,6 +44,9 @@ const pubsub = createPubSub();
 
 let table = createTable(tableAdmin,pubsub);
 
+let add = createAdd(addContainer, pubsub);
+add.createModal(add_btn);
+
 
 /*
 function render(){
@@ -46,8 +55,18 @@ function render(){
 render();
 */
 
+
+// iscrivo all evento newPlaceAdded
+pubsub.subscribe("newFotoAdded", (foto) => {
+  console.log("Nuova Foto aggiunta, aggiorno la tabella", foto);
+  table.setData(foto, tokenMap); // aggiorna i dati della tabella
+  table.renderTableAdmin(); // render della tabella con i nuovi dati
+});
+
 pubsub.subscribe("Logged", (isLogged) => {
   console.log("tabella aggiornata ", isLogged);
   table.setData(foto); // aggiorna i dati della tabella
   table.renderTableAdmin(); // render della tabella con i nuovi dati
+  add_btn_container.classList.add("visible");
+  add_btn_container.classList.remove("hidden");
 });
