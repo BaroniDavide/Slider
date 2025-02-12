@@ -64,3 +64,9 @@ pubsub.subscribe("Logged", (isLogged) => {
   add_btn_container.classList.add("visible");
   add_btn_container.classList.remove("hidden");
 });
+
+pubsub.subscribe("fotoRemoved", (listaFoto) => {
+  console.log("Foto rimossa, aggiorno la tabella");
+  table.setData(listaFoto); // aggiorna i dati della tabella
+  table.renderTableAdmin(); // render della tabella con i nuovi dati
+});

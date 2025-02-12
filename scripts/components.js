@@ -83,6 +83,7 @@ export function createTable(parentElement, pubsub) {
           html += `
           <thead>
               <tr>
+                  <th>ID</th>
                   <th>Nome</th>
                   <th>Foto</th>
                   <th>Azioni</th>
@@ -92,15 +93,16 @@ export function createTable(parentElement, pubsub) {
           `;            
 
           // Aggiunta delle righe
-          dati.forEach((e) => {
+          dati.forEach((e,i) => {
               html += `
               <tr>
+                  <td>${e.id}</td>
                   <td>${e.nome ? e.nome : ""}</td>
                   <td>
                     ${e.foto ? `<img src="${e.foto}" alt="${e.nome}" style="width: 150px; height: auto;">` : ""}
                   </td>
                   <td>
-                    <button type="button" id="rimuovi" class="btn btn-secondary">Rimuovi</button>
+                    <button type="button" id="rimuovi${i}" class="btn btn-secondary">Rimuovi</button>
                   </td>
               </tr>
               `;
@@ -109,14 +111,13 @@ export function createTable(parentElement, pubsub) {
           html += '</tbody></table>';
           parentElement.innerHTML = html;
 
-          document.querySelectorAll(".btn-rimuovi").forEach((btn) => {
-            btn.onclick = () => {
-                console.log("RIMUOVI");
+          dati.forEach((_, i) => {
+            document.getElementById(`rimuovi${i}`).onclick = () => {
+                dati.splice(i, 1);
+                pubsub.publish("fotoRemoved", dati);
             };
         });
-        },
-
-
+        }
     };
 }
 
@@ -184,6 +185,7 @@ export function createAdd(parentElement, pubsub) {
   
                 //id: foto.length + 1,
                 const nuovaFoto = {
+                    id: listaFoto.length + 1,
                     nome: nome,
                     foto: foto
                 };
@@ -200,7 +202,7 @@ export function createAdd(parentElement, pubsub) {
             };
         }
     };
-  }
+}
 
 export function createLogin(parentElement, myToken, pubsub) {
     let isLogged = false;
