@@ -91,13 +91,13 @@ export function createTable(parentElement, pubsub) {
           <tbody>
           `;            
 
-          // Aggiunta delle righe con i dati filtrati
+          // Aggiunta delle righe
           dati.forEach((e) => {
               html += `
               <tr>
-                  <td>${e.nome}</td>
+                  <td>${e.nome ? e.nome : ""}</td>
                   <td>
-                      <img src="${e.foto}" alt="${e.nome}" style="width: 150px; height: auto;">
+                    ${e.foto ? `<img src="${e.foto}" alt="${e.nome}" style="width: 150px; height: auto;">` : ""}
                   </td>
                   <td>
                     <button type="button" id="rimuovi" class="btn btn-secondary">Rimuovi</button>
@@ -108,10 +108,12 @@ export function createTable(parentElement, pubsub) {
           
           html += '</tbody></table>';
           parentElement.innerHTML = html;
-          const rimuovi=document.getElementById("rimuovi");
-          rimuovi.onclick = () => {
-                console.log("RIMUOVII");
-          };     
+
+          document.querySelectorAll(".btn-rimuovi").forEach((btn) => {
+            btn.onclick = () => {
+                console.log("RIMUOVI");
+            };
+        });
         },
 
 
@@ -119,7 +121,7 @@ export function createTable(parentElement, pubsub) {
 }
 
 export function createAdd(parentElement, pubsub) {
-    let foto = [];
+    let listaFoto = [];
   
     return {
         createModal: (add_btn) => {
@@ -187,10 +189,10 @@ export function createAdd(parentElement, pubsub) {
                 };
   
                 // Aggiungi alla lista locale
-                foto.push(nuovaFoto);
+                listaFoto.push(nuovaFoto);
   
                 // pubblico l'evento
-                pubsub.publish("newFotoAdded", foto);
+                pubsub.publish("newFotoAdded", listaFoto);
   
                 // Chiudi la modale
                 modal.style.display = 'none';

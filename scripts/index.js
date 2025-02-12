@@ -7,16 +7,10 @@ const add_btn = document.getElementById('add');
 const addContainer = document.getElementById('add-container');
 const add_btn_container = document.getElementById('add-btn-container');
 
-
-
-
 let myToken, myKey;
-let foto = [
-  {
-  "nome" : "jerome",
-  "foto" : "https://i.postimg.cc/mktDtpgj/JEROME.jpg"
-  }
-  ]
+
+//https://i.postimg.cc/mktDtpgj/JEROME.jpg
+let listaFoto = []
 
 fetch('./conf.json')
   .then((response) => {
@@ -57,15 +51,15 @@ render();
 
 
 // iscrivo all evento newPlaceAdded
-pubsub.subscribe("newFotoAdded", (foto) => {
-  console.log("Nuova Foto aggiunta, aggiorno la tabella", foto);
-  table.setData(foto, tokenMap); // aggiorna i dati della tabella
+pubsub.subscribe("newFotoAdded", (listaFoto) => {
+  console.log("Nuova Foto aggiunta, aggiorno la tabella");
+  table.setData(listaFoto); // aggiorna i dati della tabella
   table.renderTableAdmin(); // render della tabella con i nuovi dati
 });
 
 pubsub.subscribe("Logged", (isLogged) => {
   console.log("tabella aggiornata ", isLogged);
-  table.setData(foto); // aggiorna i dati della tabella
+  table.setData(listaFoto); // aggiorna i dati della tabella
   table.renderTableAdmin(); // render della tabella con i nuovi dati
   add_btn_container.classList.add("visible");
   add_btn_container.classList.remove("hidden");

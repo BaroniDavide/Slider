@@ -1,6 +1,6 @@
 /* barra */
 .top-bar {
-    background-color: #ffd500;
+    background-color: #00eaff;
     height: 40px;
     width: 100%;
     position: fixed;
@@ -33,7 +33,7 @@
     color: #333;
     text-align: center;
     margin-bottom: 20px; 
-    border-bottom: 2px solid #ffd500;
+    border-bottom: 2px solid #00eaff;
     display: inline-block;
     padding-bottom: 10px;
   }
