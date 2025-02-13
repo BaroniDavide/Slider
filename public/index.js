@@ -1,4 +1,4 @@
-import { createMiddleware, controller, createNavigator, createLogin, createPubSub, createTable, createAdd } from './components.js';
+import { createMiddleware, controller, createNavigator, createLogin, createPubSub, createTable, createAdd } from '../scripts/components.js';
 
 const login_btn = document.getElementById('login');
 const loginContainer = document.getElementById('login-container');
