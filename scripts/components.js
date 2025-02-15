@@ -1,33 +1,40 @@
 import { hide, show } from './functions.js';
 
-export const createMiddleware = () =>{
+export const createMiddleware = () => {
     return {
+
+        //Scarica una lista di immagini
         load: async () => {
-            const response = await fetch("/images");
+            const response = await fetch("/images");//modifica percorso
             const json = await response.json();
             return json;
         },
+        
+        //Elimina un'immagine specifica
         delete: async(id) => {
             const response = await fetch("/delete/"+ id, {
                 method: 'DELETE',
             });
             const json = await response.json();
-            return json
+            return json;
 
         },
+
+        //Carica un file
         upload: async(inputFile) => {
-            formData = new FormData();
+            const formData = new FormData();
+            //const input = document.querySelector("input")
             formData.append("file", inputFile.files[0]);
             const body = formData;
-            const fetchOptions={
+            const fetchOptions = {
                 method: 'post',
                 body: body
             };
-            try{
+            try {
                 const res = await fetch("/upload", fetchOptions);
                 const data = await res.json();
                 console.log(data);
-            }catch (e){
+            } catch (e){
                 console.log(e);
             }
         
@@ -121,7 +128,7 @@ export function createTable(parentElement, pubsub) {
     };
 }
 
-export function createAdd(parentElement, pubsub) {
+export function createAdd(parentElement, pubsub, middleware) {
     let listaFoto = [];
   
     return {
@@ -146,9 +153,9 @@ export function createAdd(parentElement, pubsub) {
                             
                                     <div class="form-group">
                                         <label for="foto">Foto (url)</label>
-                                        <input type="text" class="form-control" id="foto" required>
+                                        <input type="file" class="form-control" id="foto" required>
                                     </div>
-
+                                    <br>
                                     <button type="button" id="submit" class="btn btn-primary">Invia</button>
                                     <button type="button" id="cancelButton" class="btn btn-secondary">Annulla</button>
                                 </form>
@@ -174,16 +181,27 @@ export function createAdd(parentElement, pubsub) {
             // Nascondi la modale
             cancelButton.onclick = () => {
                 modal.style.display = 'none';
-                //document.getElementById('user').value = '';
-                //document.getElementById('password').value = '';
+                document.getElementById('nome').value = '';
+                document.getElementById('foto').value = '';
             };
   
             // Invia i dati
-            submitButton.onclick = () => {
+            submitButton.onclick = async () => {//async
                 const nome = document.getElementById('nome').value;
                 const foto = document.getElementById('foto').value;
-  
-                //id: foto.length + 1,
+
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+                console.log("FOTOO: ", foto)
+                const file = foto.files[0];
+
+                if (!file) {
+                    console.error("Nessun file selezionato!!!!!!");
+                    return;  // Esci dalla funzione se non c'è un file
+                }
+                await middleware.upload(file);
+
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!//
+
                 const nuovaFoto = {
                     id: listaFoto.length + 1,
                     nome: nome,
@@ -198,6 +216,8 @@ export function createAdd(parentElement, pubsub) {
   
                 // Chiudi la modale
                 modal.style.display = 'none';
+                document.getElementById('nome').value = '';
+                document.getElementById('foto').value = '';
                 console.log("Nuova Foto aggiunta:", nuovaFoto);
             };
         }
@@ -235,7 +255,7 @@ export function createLogin(parentElement, myToken, pubsub) {
                         <label for="password">Password</label>
                         <input type="password" class="form-control" id="password" required>
                     </div>
-        
+                    <br>
                     <button type="button" id="submitBtn" class="btn btn-primary">Invia</button>
                     <button type="button" id="cancelBtn" class="btn btn-secondary">Annulla</button>
                     </form>

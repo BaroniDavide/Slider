@@ -10,6 +10,7 @@ const add_btn_container = document.getElementById('add-btn-container');
 let myToken, myKey;
 
 //https://i.postimg.cc/mktDtpgj/JEROME.jpg
+//ws.cipiaceinfo.it
 let listaFoto = []
 
 fetch('./conf.json')
@@ -36,9 +37,11 @@ const nav = createNavigator(document.querySelector('#container'));
 
 const pubsub = createPubSub();
 
+const middleware = createMiddleware();
+
 let table = createTable(tableAdmin,pubsub);
 
-let add = createAdd(addContainer, pubsub);
+let add = createAdd(addContainer, pubsub, middleware);
 add.createModal(add_btn);
 
 
